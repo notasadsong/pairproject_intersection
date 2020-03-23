@@ -3,7 +3,11 @@
 #include<set>
 #include<vector>
 #include<utility>
-#include "Grometric.h"
+//#include "Grometric.h"
+#include "core.h"
+#include<windows.h>
+
+#pragma comment(lib,"pairproject_dll.lib")
 
 using namespace std;
 
