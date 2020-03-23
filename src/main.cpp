@@ -5,7 +5,6 @@
 #include<vector>
 #include<utility>
 #include <regex>
-//#include "Grometric.h"
 #include "core.h"
 #include<windows.h>
 
@@ -50,8 +49,18 @@ void getInput(vector<Line>* lines, vector<Circle>* circles, int argc, char* argv
 
 	char op;
 	int a, b, c, d;
+	int i = 0;
 	while (getline(input, l))
 	{
+		if (i >= n)
+		{
+			break;
+		}
+		if (l == "")
+		{
+			continue;
+		}
+		i++;
 		vector<string> res;
 		string result;
 		stringstream ss(l);
@@ -59,8 +68,7 @@ void getInput(vector<Line>* lines, vector<Circle>* circles, int argc, char* argv
 		{
 			res.push_back(result);
 		}
-		
-		if (res[0] == "L" || res[0] == "R" || res[0] == "S")
+		if (res.size() != 0 && (res[0] == "L" || res[0] == "R" || res[0] == "S"))
 		{
 			op = res[0][0];
 			try {
@@ -115,7 +123,7 @@ void getInput(vector<Line>* lines, vector<Circle>* circles, int argc, char* argv
 			Line l((double)a, (double)b, (double)c, (double)d, op);
 			lines->push_back(l);
 		}
-		else if (res[0] == "C")
+		else if (res.size() != 0 && res[0] == "C")
 		{
 			op = res[0][0];
 			try {
@@ -179,6 +187,16 @@ void getInput(vector<Line>* lines, vector<Circle>* circles, int argc, char* argv
 				cerr << msg << endl;
 				return;
 			}
+		}
+	}
+	if (i < n)
+	{
+		try {
+			throw"输入数据过少";
+		}
+		catch (const char* msg) {
+			cerr << msg << endl;
+			return;
 		}
 	}
 

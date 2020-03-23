@@ -44,9 +44,11 @@ public:
 		try {
 			if (l.a * b == l.b * a && l.a * c == l.c * a)
 			{
-				throw "直线重合";
+				if (type == 'L' || l.type == 'L')
+				{
+					throw "交点无穷";
+				}
 			}
-
 		}
 		catch (const char* msg) {
 			cerr << msg << endl;
