@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<set>
 #include<cmath>
 #include<utility>
@@ -6,18 +6,18 @@
 using namespace std;
 
 #define EPS (1e-12)
-#define equal_(a,b) (fabs((a) - (b)) < EPS)
+#define equal(a,b) (fabs((a) - (b)) < EPS)
 
 class Line {
 
 public:
 
 	double a, b, c;
-	char type;  //L, S, R·Ö±ğ´ú±íÖ±Ïß£¬Ïß¶Î£¬ÉäÏß
+	char type;  //L, S, Rï¿½Ö±ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ß£ï¿½ï¿½ß¶Î£ï¿½ï¿½ï¿½ï¿½ï¿½
 	double x0, y0, x1, y1;
 
 	Line(double x_0, double y_0, double x_1, double y_1, char t) {
-		//½«Ö±ÏßµÄax+by+c=0ÖĞµÄÏµÊıÇó³ö
+		//ï¿½ï¿½Ö±ï¿½ßµï¿½ax+by+c=0ï¿½Ğµï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½
 		a = y_1 - y_0;
 		b = x_0 - x_1;
 		c = x_1 * y_0 - x_0 * y_1;
@@ -40,6 +40,16 @@ public:
 	}
 
 	bool parallel(Line l) {
+		try {
+			if (l.a * b == l.b * a && l.a * c == l.c * a )
+			{
+				throw "ç›´çº¿é‡åˆ";
+			}
+
+		}
+		catch (const char* msg) {
+			cerr << msg << endl;
+		}
 		return (l.a * b == l.b * a);
 	}
 
@@ -53,7 +63,7 @@ public:
 		return fabs(calc(x, y)) / sqrt(a * a + b * b);
 	}
 
-	bool isInS(double x, double y) 
+	bool isInS(double x, double y)
 	{
 		if ((x - x0) * (x - x1) <= 0) return true;
 		else return false;
@@ -84,10 +94,10 @@ struct cmp
 {
 	bool operator() (const pair<double, double> a, const pair<double, double> b) const
 	{
-		if (equal_(a.first, b.first) && equal_(a.second, b.second)) {
+		if (equal(a.first, b.first) && equal(a.second, b.second)) {
 			return false;
 		}
-		else if (!equal_(a.first, b.first))
+		else if (!equal(a.first, b.first))
 		{
 			return a.first < b.first;
 		}
@@ -98,7 +108,7 @@ struct cmp
 	}
 };
 
-class Solve 
+class Solve
 {
 public:
 	void LLintersect(set<pair<double, double>, cmp>* intersections, Line l1, Line l2)
@@ -112,7 +122,7 @@ public:
 
 	}
 
-	void LRintersect(set<pair<double, double>, cmp>* intersections, Line l, Line r) 
+	void LRintersect(set<pair<double, double>, cmp>* intersections, Line l, Line r)
 	{
 		set<pair<double, double>, cmp> temp;
 
@@ -128,7 +138,7 @@ public:
 
 	void LSintersect(set<pair<double, double>, cmp>* intersections, Line l, Line s)
 	{
-		//ÅĞ¶ÏÏß¶ÎÁ½¸ö¶ËµãÊÇ·ñÔÚÖ±ÏßÁ½²à£¬Ö»ÓĞ²»ÔÚÍ¬Ò»²àÊ±²ÅÓĞ½»µã
+		//ï¿½Ğ¶ï¿½ï¿½ß¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½à£¬Ö»ï¿½Ğ²ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ğ½ï¿½ï¿½ï¿½
 		if (l.calc(s.x0, s.y0) * l.calc(s.x1, s.y1) <= 0)
 		{
 			LLintersect(intersections, l, s);
@@ -151,7 +161,7 @@ public:
 
 	void SSintersect(set<pair<double, double>, cmp>* intersections, Line s1, Line s2)
 	{
-		if (s1.calc(s2.x0, s2.y0) * s1.calc(s2.x1, s2.y1) <= 0 
+		if (s1.calc(s2.x0, s2.y0) * s1.calc(s2.x1, s2.y1) <= 0
 			&& s2.calc(s1.x0, s1.y0) * s2.calc(s1.x1, s1.y1) <= 0)
 		{
 			LLintersect(intersections, s1, s2);
@@ -170,7 +180,7 @@ public:
 	{
 		double dis = l.disPL(c.x, c.y);
 		if (dis > c.r) return;
-		//ÏÈÕÒµ½Ô²ĞÄÔÚÖ±ÏßÉÏµÄÍ¶Ó°µã,ÓÃÓëÖ±Ïß´¹Ö±µÄÏß×ö½»µãµÃµ½
+		//ï¿½ï¿½ï¿½Òµï¿½Ô²ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Ïµï¿½Í¶Ó°ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ß´ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
 		Line l_(l.b, -l.a, c.y * l.a - c.x * l.b);
 
 		set<pair<double, double>, cmp> temp;
@@ -179,7 +189,7 @@ public:
 		for (auto it : temp) p = it;
 		if (dis < c.r) {
 			double delta_x = l.b * sqrt((c.r * c.r - dis * dis) / (l.a * l.a + l.b * l.b));
-			double delta_y = - l.a * sqrt((c.r * c.r - dis * dis) / (l.a * l.a + l.b * l.b));
+			double delta_y = -l.a * sqrt((c.r * c.r - dis * dis) / (l.a * l.a + l.b * l.b));
 			intersections->insert(make_pair(p.first + delta_x, p.second + delta_y));
 			intersections->insert(make_pair(p.first - delta_x, p.second - delta_y));
 		}
@@ -211,15 +221,28 @@ public:
 
 	void CCintersect(set<pair<double, double>, cmp>* intersections, Circle c1, Circle c2)
 	{
+		try {
+			if (c1.x == c2.x && c1.y == c2.y && c1.r == c2.r)
+			{
+				throw "åœ†é‡åˆ";
+			}
+
+		}
+		catch (const char* msg) {
+			cerr << msg << endl;
+		}
+
 		double dis_center = sqrt((c1.x - c2.x) * (c1.x - c2.x) + (c1.y - c2.y) * (c1.y - c2.y));
-		//ÍâÀë
+		//ï¿½ï¿½ï¿½ï¿½
 		if (dis_center > c2.r + c1.r) return;
-		//°üº¬
+		//ï¿½ï¿½ï¿½ï¿½
 		if (dis_center < fabs(c2.r - c1.r)) return;
-		//ÓĞ½»µã
+		//ï¿½Ğ½ï¿½ï¿½ï¿½
 		double a_ = -2 * (c2.x - c1.x);
 		double b_ = -2 * (c2.y - c1.y);
 		double c_ = c2.x * c2.x + c2.y * c2.y - c2.r * c2.r - c1.x * c1.x - c1.y * c1.y + c1.r * c1.r;
+
+
 		Line l_(a_, b_, c_);
 
 		LCintersect(intersections, l_, c1);

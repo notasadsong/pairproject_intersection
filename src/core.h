@@ -2,6 +2,7 @@
 #include<set>
 #include<cmath>
 #include<utility>
+#include<iostream>
 
 using namespace std;
 
@@ -40,6 +41,16 @@ public:
 	}
 
 	bool parallel(Line l) {
+		try {
+			if (l.a * b == l.b * a && l.a * c == l.c * a)
+			{
+				throw "直线重合";
+			}
+
+		}
+		catch (const char* msg) {
+			cerr << msg << endl;
+		}
 		return (l.a * b == l.b * a);
 	}
 
